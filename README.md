@@ -18,13 +18,3 @@ This project is **no longer maintained**. Use at your own risk.
 - Works on Windows, macOS, and Linux  
 
 ---
-
-## Requirements
-
-- Python 3.6 or higher  
-- `pycryptodome` library  
-
-Install dependencies with:
-
-```bash
-pip install pycryptodome
