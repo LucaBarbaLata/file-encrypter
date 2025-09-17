@@ -8,11 +8,11 @@ import time
 from cryptography.fernet import Fernet
 import PyTaskbar
 
-# ---------------- Global Variables ----------------
+
 progress_info = {"start_time": None, "processed": 0, "total": 0}
 cancel_event = threading.Event()
 
-# ---------------- Logging & ETA ----------------
+
 def log_message(msg):
     timestamp = time.strftime("%H:%M:%S")
     message = f"[{timestamp}] {msg}\n"
@@ -47,7 +47,7 @@ def update_eta_label():
     else:
         root.after(1000, lambda: eta_label.configure(text=""))
 
-# ---------------- Key Management ----------------
+
 def generate_key():
     key = Fernet.generate_key()
     with open("key.key", "wb") as key_file:
@@ -63,7 +63,7 @@ def load_key():
         log_message("Error: No key found.")
         return None
 
-# ---------------- Encryption ----------------
+
 def encrypt_file_thread(file_path):
     taskbar_progress = PyTaskbar.Progress(root.winfo_id())
     taskbar_progress.init()
@@ -169,7 +169,7 @@ def encrypt_folder_thread():
         log_message(f"Error: {e}")
         messagebox.showerror("Error",f"Folder encryption failed: {e}")
 
-# ---------------- Decryption ----------------
+
 def decrypt_file_thread():
     taskbar_progress = PyTaskbar.Progress(root.winfo_id()); taskbar_progress.init(); taskbar_progress.setState("loading")
     key = load_key()
@@ -271,7 +271,7 @@ def decrypt_folder_thread():
     except Exception as e:
         log_message(f"Error: {e}"); messagebox.showerror("Error",f"Folder decryption failed: {e}")
 
-# ---------------- Wrappers ----------------
+
 def encrypt_file():
     f = filedialog.askopenfilename(title="Select File to Encrypt")
     if f:
@@ -286,11 +286,11 @@ def decrypt_file(): threading.Thread(target=decrypt_file_thread,daemon=True).sta
 def decrypt_folder(): threading.Thread(target=decrypt_folder_thread,daemon=True).start()
 def cancel_operation(): cancel_event.set(); log_message("Cancel requested by user.")
 
-# ---------------- GUI Setup ----------------
+
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 root=ctk.CTk()
-root.title("File & Folder Encryptor/Decryptor")
+root.title("File-Encrypter")
 root.geometry("900x550")
 
 # Stop button icon
