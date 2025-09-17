@@ -293,7 +293,7 @@ root=ctk.CTk()
 root.title("File-Encrypter")
 root.geometry("900x550")
 
-# Stop button icon
+
 if os.path.exists("stop_icon.png"):
     from PIL import Image
     stop_image=Image.open("stop_icon.png")
